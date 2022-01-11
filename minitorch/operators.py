@@ -12,7 +12,7 @@ import math
 
 def mul(x, y):
     ":math:`f(x, y) = x * y`"
-    return x*y
+    return x * y
 
 
 def id(x):
@@ -22,7 +22,7 @@ def id(x):
 
 def add(x, y):
     ":math:`f(x, y) = x + y`"
-    return x+y
+    return x + y
 
 
 def neg(x):
@@ -32,25 +32,29 @@ def neg(x):
 
 def lt(x, y):
     ":math:`f(x) =` 1.0 if x is less than y else 0.0"
-    if(x < y): return 1.0
+    if x < y:
+        return 1.0
     return 0.0
 
 
 def eq(x, y):
     ":math:`f(x) =` 1.0 if x is equal to y else 0.0"
-    if(x == y): return 1.0
+    if x == y:
+        return 1.0
     return 0.0
 
 
 def max(x, y):
     ":math:`f(x) =` x if x is greater than y else y"
-    if(x > y): return x
+    if x > y:
+        return x
     return y
 
 
 def is_close(x, y):
     ":math:`f(x) = |x - y| < 1e-2` "
-    return lt(abs(x-y), 1e-2)
+    return lt(abs(x - y), 1e-2)
+
 
 def sigmoid(x):
     r"""
@@ -71,9 +75,9 @@ def sigmoid(x):
         float : sigmoid value
     """
     if x >= 0:
-        return 1.0/(1.0 + exp(-x))
+        return 1.0 / (1.0 + exp(-x))
     else:
-        return exp(x)/(1.0+exp(x))
+        return exp(x) / (1.0 + exp(x))
 
 
 def relu(x):
@@ -92,6 +96,7 @@ def relu(x):
         return x
     else:
         return 0
+
 
 EPS = 1e-6
 
@@ -113,12 +118,12 @@ def log_back(x, d):
 
 def inv(x):
     ":math:`f(x) = 1/x`"
-    return 1.0/x
+    return 1.0 / x
 
 
 def inv_back(x, d):
     r"If :math:`f(x) = 1/x` compute d :math:`d \times f'(x)`"
-    return mul(-x**-2, d)
+    return mul(-(x ** -2), d)
 
 
 def relu_back(x, d):
@@ -150,6 +155,7 @@ def map(fn):
         function : A function that takes a list, applies `fn` to each element, and returns a
         new list
     """
+
     def mapped_fn(ls):
         output = []
         for i in ls:
@@ -162,6 +168,7 @@ def map(fn):
 def negList(ls):
     "Use :func:`map` and :func:`neg` to negate each element in `ls`"
     return map(neg)(ls)
+
 
 def zipWith(fn):
     """
@@ -179,6 +186,7 @@ def zipWith(fn):
         applying fn(x, y) on each pair of elements.
 
     """
+
     def zipped_fn(ls1, ls2):
         output = []
         for i in range(len(ls1)):
@@ -186,6 +194,7 @@ def zipWith(fn):
         return output
 
     return zipped_fn
+
 
 def addLists(ls1, ls2):
     "Add the elements of `ls1` and `ls2` using :func:`zipWith` and :func:`add`"
@@ -208,11 +217,13 @@ def reduce(fn, start):
         :math:`x_1 \ldots x_n` and computes the reduction :math:`fn(x_3, fn(x_2,
         fn(x_1, x_0)))`
     """
+
     def reduce_fn(ls):
         output = start
         for i in range(len(ls)):
             output = fn(ls[i], output)
         return output
+
     return reduce_fn
 
 
